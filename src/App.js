@@ -1,84 +1,154 @@
 import React from 'react';
-import {BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.scss';
 import List from './page/List';
 import About from './page/About';
-import {Layout, Menu, Breadcrumb, Icon} from 'antd';
+import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 
-const {SubMenu} = Menu;
-const {Header, Content, Sider} = Layout;
+const { SubMenu } = Menu;
+const { Header, Content, Sider } = Layout;
+const headerMenuList = [
+    {
+        value: '1',
+        label: 'nav1'
+    },
+    {
+        value: '2',
+        label: 'nav2'
+    },
+    {
+        value: '3',
+        label: 'nav3'
+    }
+];
+const leftMemu = [
+    {
+        value: 'sub1',
+        iconType: 'user',
+        label: 'subnav 1',
+        children: [
+            {
+                value: 'child1',
+                label: 'option1'
+            },
+            {
+                value: 'child2',
+                label: 'option2'
+            },
+            {
+                value: 'child3',
+                label: 'option3'
+            },
+            {
+                value: 'child4',
+                label: 'option4'
+            }
+        ]
+    },
+    {
+        value: 'sub2',
+        iconType: 'laptop',
+        label: 'subnav 2',
+        children: [
+            {
+                value: 'child5',
+                label: 'option5'
+            },
+            {
+                value: 'child6',
+                label: 'option6'
+            },
+            {
+                value: 'child7',
+                label: 'option7'
+            },
+            {
+                value: 'child8',
+                label: 'option8'
+            }
+        ]
+    },
+    {
+        value: 'sub3',
+        iconType: 'notification',
+        label: 'subnav 3',
+        children: [
+            {
+                value: 'child9',
+                label: 'option9'
+            },
+            {
+                value: 'child10',
+                label: 'option10'
+            },
+            {
+                value: 'child11',
+                label: 'option11'
+            },
+            {
+                value: 'child12',
+                label: 'option12'
+            }
+        ]
+    }
+];
+const breadcrumbList = ['Home', 'List', 'App'];
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: 'mgp'
+            breadcrumbList: breadcrumbList
         }
+    }
+
+    changeTabMenu(e) {
+        let {key} = e;
+        console.log(key);
+        this.setState({
+            breadcrumbList: [key]
+        });
     }
 
     render() {
         return (
             <Layout className="App">
                 <Header className="header">
-                    <div className="logo"/>
+                    <div className="logo" />
                     <Menu
                         theme="dark"
                         mode="horizontal"
                         defaultSelectedKeys={['1']}
-                        style={{lineHeight: '64px'}}
+                        style={{ lineHeight: '64px' }}
+                        onClick={(...arg) => {this.changeTabMenu(...arg)}}
                     >
-                        <Menu.Item key="1">nav 1</Menu.Item>
-                        <Menu.Item key="2">nav 2</Menu.Item>
-                        <Menu.Item key="3">nav 3</Menu.Item>
+                        {headerMenuList.map(item => <Menu.Item key={item.value}>{item.label}</Menu.Item>)}
                     </Menu>
                 </Header>
                 <Layout className="main">
-                    <Sider width={200} style={{background: '#fff'}}>
+                    <Sider width={200} style={{ background: '#fff' }}>
                         <Menu
                             mode="inline"
                             defaultSelectedKeys={['1']}
                             defaultOpenKeys={['sub1']}
-                            style={{height: '100%', borderRight: 0}}
+                            style={{ height: '100%', borderRight: 0 }}
                         >
-                            <SubMenu
-                                key="sub1"
-                                title={
-                                    <span><Icon type="user"/>subnav 1</span>
-                                }
-                            >
-                                <Menu.Item key="1">option1</Menu.Item>
-                                <Menu.Item key="2">option2</Menu.Item>
-                                <Menu.Item key="3">option3</Menu.Item>
-                                <Menu.Item key="4">option4</Menu.Item>
-                            </SubMenu>
-                            <SubMenu
-                                key="sub2"
-                                title={
-                                    <span><Icon type="laptop"/>subnav 2</span>
-                                }
-                            >
-                                <Menu.Item key="5">option5</Menu.Item>
-                                <Menu.Item key="6">option6</Menu.Item>
-                                <Menu.Item key="7">option7</Menu.Item>
-                                <Menu.Item key="8">option8</Menu.Item>
-                            </SubMenu>
-                            <SubMenu
-                                key="sub3"
-                                title={
-                                    <span><Icon type="notification"/>subnav 3</span>
-                                }
-                            >
-                                <Menu.Item key="9">option9</Menu.Item>
-                                <Menu.Item key="10">option10</Menu.Item>
-                                <Menu.Item key="11">option11</Menu.Item>
-                                <Menu.Item key="12">option12</Menu.Item>
-                            </SubMenu>
+                            {
+                                leftMemu.map(subItem =>
+                                    <SubMenu
+                                        key={subItem.value}
+                                        title={
+                                            <span><Icon type={subItem.iconType} />{subItem.label}</span>
+                                        }
+                                    >
+                                        {subItem.children.map(childrenItem => <Menu.Item key={childrenItem.value}>{childrenItem.label}</Menu.Item>)}
+                                    </SubMenu>
+                                )
+                            }
                         </Menu>
                     </Sider>
                     <Layout style={{ padding: '0 24px 24px' }}>
                         <Breadcrumb style={{ margin: '16px 0' }}>
-                            <Breadcrumb.Item>Home</Breadcrumb.Item>
-                            <Breadcrumb.Item>List</Breadcrumb.Item>
-                            <Breadcrumb.Item>App</Breadcrumb.Item>
+                            {this.state.breadcrumbList.map(item => <Breadcrumb.Item key={'list' + item}>{item}</Breadcrumb.Item>)}
                         </Breadcrumb>
                         <Content
                             style={{
