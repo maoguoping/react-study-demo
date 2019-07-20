@@ -4,7 +4,7 @@ import './App.scss';
 import List from './page/List';
 import About from './page/About';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
-
+import SideMenu from './components/module/SideMenu'
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 const headerMenuList = [
@@ -126,25 +126,7 @@ class App extends React.Component {
                 </Header>
                 <Layout className="main">
                     <Sider width={200} style={{ background: '#fff' }}>
-                        <Menu
-                            mode="inline"
-                            defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
-                            style={{ height: '100%', borderRight: 0 }}
-                        >
-                            {
-                                leftMemu.map(subItem =>
-                                    <SubMenu
-                                        key={subItem.value}
-                                        title={
-                                            <span><Icon type={subItem.iconType} />{subItem.label}</span>
-                                        }
-                                    >
-                                        {subItem.children.map(childrenItem => <Menu.Item key={childrenItem.value}>{childrenItem.label}</Menu.Item>)}
-                                    </SubMenu>
-                                )
-                            }
-                        </Menu>
+                        <SideMenu list={leftMemu}></SideMenu>
                     </Sider>
                     <Layout style={{ padding: '0 24px 24px' }}>
                         <Breadcrumb style={{ margin: '16px 0' }}>
