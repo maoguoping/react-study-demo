@@ -3,13 +3,17 @@ import PropsTypes from 'prop-types';
 import {Menu, Icon } from 'antd';
 const { SubMenu } = Menu;
 function SideMenu(props) {
-    const {list} = props;      
+    const {list, defaultValue, value} = props;
+    const defaultOpen = defaultValue[0];
+    const defaultSelect = defaultValue[1];
         return (
             <Menu
                 mode="inline"
-                defaultSelectedKeys={['child1']}
-                defaultOpenKeys={['sub1']}
+                defaultSelectedKeys={[defaultSelect]}
+                defaultOpenKeys={[defaultOpen]}
+                selectedKeys={value}
                 style={{ height: '100%', borderRight: 0 }}
+                onClick={props.onClick}
             >
                 {
                     list.map(subItem =>
@@ -19,7 +23,11 @@ function SideMenu(props) {
                                 <span><Icon type={subItem.iconType} />{subItem.label}</span>
                             }
                         >
-                            {subItem.children.map(childrenItem => <Menu.Item key={childrenItem.value}>{childrenItem.label}</Menu.Item>)}
+                            {
+                                subItem.children.map(childrenItem => 
+                                    <Menu.Item key={childrenItem.value}>{childrenItem.label}
+                                    </Menu.Item>)
+                            }
                         </SubMenu>
                     )
                 }

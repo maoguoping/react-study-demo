@@ -21,23 +21,42 @@ const headerMenuList = [
         label: 'nav3'
     }
 ];
-const breadcrumbList = ['Home', 'List', 'App'];
+const breadcrumbList = ['nav1', 'sub1', 'child1'];
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             breadcrumbList: breadcrumbList,
-            sideMenuList: []
+            sideMenuList: [],
+            selectValue: ['sub1', 'child1']
         }
+        this.defaultValue = ['sub1', 'child1'];
         this.changeTabMenu = this.changeTabMenu.bind(this);
+        this.changeSideMenu = this.changeSideMenu.bind(this);
     }
 
     changeTabMenu(e) {
         let {key} = e;
-        console.log(key);
+        console.log(e);
+        for(const item of headerMenuList) {
+            if (item.value == key) {
+                this.setState({
+                    breadcrumbList: [item.label, ...this.defaultValue],
+                    selectValue: [item.value, ...this.defaultValue]
+                });
+                break;
+            }
+        }
+    }
+    
+    changeSideMenu(e) {
+        let {keyPath} = e;
+        let navName = this.state.breadcrumbList[0];
+        let path = keyPath.reverse();
         this.setState({
-            breadcrumbList: [key]
-        });
+            breadcrumbList:[navName,...path],
+            selectValue: keyPath
+        })
     }
 
     componentDidMount() {
@@ -134,7 +153,7 @@ class App extends React.Component {
                 </Header>
                 <Layout className="main">
                     <Sider width={200} style={{ background: '#fff' }}>
-                        <SideMenu list={this.state.sideMenuList}></SideMenu>
+                        <SideMenu value={this.state.selectValue} defaultValue={this.defaultValue} list={this.state.sideMenuList} onClick={this.changeSideMenu}></SideMenu>
                     </Sider>
                     <Layout style={{ padding: '0 24px 24px' }}>
                         <Breadcrumb style={{ margin: '16px 0' }}>
