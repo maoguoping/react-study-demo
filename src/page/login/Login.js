@@ -1,21 +1,30 @@
 import React from 'react';
+import ReactSVG from 'react-svg'
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import './Login.scss';
+import loginSvg from '../../assets/animate/link.svg'
+import LoginBox from '../../components/module/LoginBox/LoginBox';
+const WrapedLoginBox = Form.create({ name: 'normal_login' })(LoginBox);
 class Login extends React.Component {
     constructor(props) {
         super(props);
         this.loginIn = this.loginIn.bind(this);
+        
     }
 
-    loginIn() {
+    loginIn(values) {
+        console.log(values);
         this.props.history.push('/home');
     }
     
     render() {
         return (
-            <div>
-                <div>
-                    <label>用户名</label><input name="username"/>
-                    <label>密码</label><input name="password"/>
-                    <button onClick={this.loginIn}>登陆</button>
+            <div className="login-page">
+                <div className="login-center-area">
+                    <div className="login-svg">
+                        <ReactSVG src={loginSvg}/>
+                    </div>
+                    <WrapedLoginBox loginIn={this.loginIn}></WrapedLoginBox>
                 </div>
             </div>
         )
