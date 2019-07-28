@@ -1,12 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Route , Switch} from 'react-router-dom'
+import { Route , Switch} from 'react-router-dom'
+import { withRouter } from 'react-router';
 import './Home.scss';
 import List from '../list/List';
 import About from '../about/About';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Breadcrumb } from 'antd';
+import HeadBar from '../../components/module/HeaderBar/HeaderBar'
 import SideMenu from '../../components/module/SideMenu'
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+
+const { Content, Sider } = Layout;
 const headerMenuList = [
     {
         value: '1',
@@ -33,13 +35,14 @@ class Home extends React.Component {
         this.defaultValue = ['sub1', 'child1'];
         this.changeTabMenu = this.changeTabMenu.bind(this);
         this.changeSideMenu = this.changeSideMenu.bind(this);
+        this.onLogout = this.onLogout.bind(this);
     }
 
     changeTabMenu(e) {
         let {key} = e;
         console.log(e);
         for(const item of headerMenuList) {
-            if (item.value == key) {
+            if (item.value === key) {
                 this.setState({
                     breadcrumbList: [item.label, ...this.defaultValue],
                     selectValue: [item.value, ...this.defaultValue]
@@ -57,6 +60,11 @@ class Home extends React.Component {
             breadcrumbList:[navName,...path],
             selectValue: keyPath
         })
+    }
+
+    onLogout() {
+        console.log('退出登录');
+        this.props.history.push('/login',{from: '/home'});
     }
 
     componentDidMount() {
@@ -140,18 +148,7 @@ class Home extends React.Component {
         const url = this.props.match.url;
         return (
             <Layout className="App">
-                <Header className="header">
-                    <div className="logo" />
-                    <Menu
-                        theme="dark"
-                        mode="horizontal"
-                        defaultSelectedKeys={['1']}
-                        style={{ lineHeight: '64px' }}
-                        onClick={this.changeTabMenu}
-                    >
-                        {headerMenuList.map(item => <Menu.Item key={item.value}>{item.label}</Menu.Item>)}
-                    </Menu>
-                </Header>
+                <HeadBar list={headerMenuList} onChange={this.changeTabMenu} onLogout={this.onLogout}></HeadBar>
                 <Layout className="main">
                     <Sider width={200} style={{ background: '#fff' }}>
                         <SideMenu value={this.state.selectValue} defaultValue={this.defaultValue} list={this.state.sideMenuList} onClick={this.changeSideMenu}></SideMenu>
@@ -181,4 +178,4 @@ class Home extends React.Component {
     }
 }
 
-export default Home;
+export default withRouter(Home);

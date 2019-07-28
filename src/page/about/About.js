@@ -1,4 +1,5 @@
 import React from 'react';
+import {withRouter } from 'react-router';
 class About extends React.Component {
   constructor(props) {
     super(props);
@@ -15,4 +16,4 @@ class About extends React.Component {
   }
 }
 
-export default About;
+export default withRouter(About);

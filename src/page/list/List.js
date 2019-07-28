@@ -1,4 +1,5 @@
 import React from 'react';
+import {withRouter} from 'react-router';
 class List extends React.Component{
   constructor(props) {
     super(props);
@@ -13,4 +14,4 @@ class List extends React.Component{
   }
 }
 
-export default List;
+export default withRouter(List);

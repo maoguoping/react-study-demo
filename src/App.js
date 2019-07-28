@@ -4,10 +4,6 @@ import './App.scss';
 import Home from './page/home/Home';
 import Login from './page/login/Login';
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
            <Router>

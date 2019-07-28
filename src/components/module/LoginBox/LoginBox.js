@@ -2,9 +2,6 @@ import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import './LoginBox.scss'
 class LoginBox extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     handleSubmit = e => {
         e.preventDefault();
@@ -50,13 +47,13 @@ class LoginBox extends React.Component {
                             valuePropName: 'checked',
                             initialValue: true,
                         })(<Checkbox>记住密码</Checkbox>)}
-                        <a className="login-form-forgot" href="">
+                        <a className="login-form-forgot">
                             忘记密码
           </a>
                         <Button type="primary" htmlType="submit" className="login-form-button">
                             登录
           </Button>
-                        Or <a href="">马上注册!</a>
+                        Or <a>马上注册!</a>
                     </Form.Item>
                 </Form>
             </div>
