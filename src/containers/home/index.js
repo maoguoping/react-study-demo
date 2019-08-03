@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route , Switch} from 'react-router-dom'
 import { withRouter } from 'react-router';
-import './Home.scss';
+import './style.scss';
 import List from '../list/List';
 import About from '../about/About';
 import { Layout, Breadcrumb } from 'antd';
@@ -72,23 +72,19 @@ class Home extends React.Component {
             {
                 value: 'sub1',
                 iconType: 'user',
-                label: 'subnav 1',
+                label: '用户管理',
                 children: [
                     {
                         value: 'child1',
-                        label: 'option1'
+                        label: '用户列表'
                     },
                     {
                         value: 'child2',
-                        label: 'option2'
+                        label: '角色列表'
                     },
                     {
                         value: 'child3',
-                        label: 'option3'
-                    },
-                    {
-                        value: 'child4',
-                        label: 'option4'
+                        label: '权限列表'
                     }
                 ]
             },

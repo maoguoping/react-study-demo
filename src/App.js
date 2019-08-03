@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route , Switch} from 'react-router-dom'
+import { BrowserRouter as Router, Route , Switch} from 'react-router-dom';
 import './App.scss';
-import Home from './page/home/Home';
-import Login from './page/login/Login';
+import './mock/auth';
+import Home from './containers/home';
+import Login from './containers/login';
 class App extends React.Component {
     render() {
         return (

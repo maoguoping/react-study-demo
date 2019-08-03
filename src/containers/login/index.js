@@ -2,9 +2,24 @@ import React from 'react';
 import ReactSVG from 'react-svg';
 import {Redirect} from 'react-router-dom';
 import { Form } from 'antd';
-import './Login.scss';
+import './style.scss';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { actions as authActions, getLoggeredUser} from '../../redux/modules/auth';
+import { getAppInfo } from '../../redux/modules/app';
 import loginSvg from '../../assets/animate/link.svg'
 import LoginBox from '../../components/module/LoginBox/LoginBox';
+const mapStateToProps = state => {
+    return {
+        appInfo: getAppInfo(state),
+        userInfo: getLoggeredUser(state)
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        loginInAction: bindActionCreators(authActions.login, dispatch),
+    }
+};
 const WrapedLoginBox = Form.create({ name: 'normal_login' })(LoginBox);
 class Login extends React.Component {
     constructor(props) {
@@ -19,11 +34,19 @@ class Login extends React.Component {
     loginIn(data) {
         console.log(data);
         let {username, password} = data;
-        sessionStorage.setItem('username', username);
-        sessionStorage.setItem('password', password);
-        this.setState({
-            redirectToReferrer: true
-        })
+        this.props.loginInAction(username, password);
+       
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const userInfo = nextProps.userInfo;
+        if (nextProps.userInfo.userId !== null) {
+            sessionStorage.setItem('username', userInfo.username);
+            sessionStorage.setItem('userId', userInfo.userId);
+            this.setState({
+                redirectToReferrer: true
+            })
+        }
     }
     
     render() {
@@ -44,4 +67,4 @@ class Login extends React.Component {
         )
     }
 }
-export default Login;
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
