@@ -19,8 +19,19 @@ export const actions = {
             dispatch(appActions.startRequest());
             http.get('/getHeaderMenuList',{}).then(res => {
                 dispatch(appActions.finishRequest());
-                console.log(res);
                 dispatch(getHeaderMenuSuccess(res.data.list));
+            }).catch(err => {
+                dispatch(appActions.finishRequest());
+                dispatch(appActions.setError(err));
+            })
+        }
+    },
+    getSideMenu: () => {
+        return (dispatch, getState) => {
+            dispatch(appActions.startRequest());
+            http.get('/getSideMenuList',{}).then(res => {
+                dispatch(appActions.finishRequest());
+                dispatch(getSideMenuSuccess(res.data.list));
             }).catch(err => {
                 dispatch(appActions.finishRequest());
                 dispatch(appActions.setError(err));
@@ -29,9 +40,14 @@ export const actions = {
     },  
 };
 
-const getHeaderMenuSuccess = (list) => ({
+const getHeaderMenuSuccess = list => ({
     type: types.GET_HEADER_MENU,
     list
+})
+
+const getSideMenuSuccess  = list => ({
+    type: types.GET_SIDE_MENU,
+    list 
 })
 
 //reducers
@@ -41,12 +57,19 @@ const headerMenuList = (state = initialState.headerMenuList, action) => {
         default: return state;
     }
 }
-
+const sideMenuList = (state = initialState.sideMenuList, action) => {
+    switch(action.type) {
+        case types.GET_SIDE_MENU: return action.list;
+        default: return state;
+    }
+}
 const reducer = combineReducers({
-    headerMenuList
+    headerMenuList,
+    sideMenuList
 });
 
 export default reducer;
 
 //selectors
-export const headerMenuListSelector = state => state.headerMenuList;
+export const headerMenuListSelector = state => state.page.headerMenuList;
+export const sideMenuListSelector = state => state.page.sideMenuList;

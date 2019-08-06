@@ -16,7 +16,7 @@ function SideMenu(props) {
                 onClick={props.onClick}
             >
                 {
-                    list.map(subItem =>
+                    list.length >0 && list.map(subItem =>
                         <SubMenu
                             key={subItem.value}
                             title={
