@@ -1,28 +1,26 @@
 import React from 'react';
 import { Route , Switch} from 'react-router-dom'
 import { withRouter } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { actions as pageActions, headerMenuListSelector } from '../../redux/modules/page';
 import './style.scss';
 import List from '../list/List';
 import About from '../about/About';
 import { Layout, Breadcrumb } from 'antd';
 import HeadBar from '../../components/module/HeaderBar/HeaderBar'
 import SideMenu from '../../components/module/SideMenu'
-
-const { Content, Sider } = Layout;
-const headerMenuList = [
-    {
-        value: '1',
-        label: 'nav1'
-    },
-    {
-        value: '2',
-        label: 'nav2'
-    },
-    {
-        value: '3',
-        label: 'nav3'
+const mapStateToProps = state => {
+    return {
+        headerMenuList: headerMenuListSelector(state)
     }
-];
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        getHeaderMenu: bindActionCreators(pageActions.getHeaderMenu, dispatch),
+    }
+};
+const { Content, Sider } = Layout;
 const breadcrumbList = ['nav1', 'sub1', 'child1'];
 class Home extends React.Component {
     constructor(props) {
@@ -41,7 +39,7 @@ class Home extends React.Component {
     changeTabMenu(e) {
         let {key} = e;
         console.log(e);
-        for(const item of headerMenuList) {
+        for(const item of this.props.headerMenuList) {
             if (item.value === key) {
                 this.setState({
                     breadcrumbList: [item.label, ...this.defaultValue],
@@ -68,6 +66,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
+        this.props.getHeaderMenu();
         let sideMenuList = [
             {
                 value: 'sub1',
@@ -142,9 +141,10 @@ class Home extends React.Component {
 
     render() {
         const url = this.props.match.url;
+        console.log(this.props);
         return (
             <Layout className="App">
-                <HeadBar list={headerMenuList} onChange={this.changeTabMenu} onLogout={this.onLogout}></HeadBar>
+                {/* <HeadBar list={this.props.headerMenuList} onChange={this.changeTabMenu} onLogout={this.onLogout}></HeadBar> */}
                 <Layout className="main">
                     <Sider width={200} style={{ background: '#fff' }}>
                         <SideMenu value={this.state.selectValue} defaultValue={this.defaultValue} list={this.state.sideMenuList} onClick={this.changeSideMenu}></SideMenu>
@@ -174,4 +174,4 @@ class Home extends React.Component {
     }
 }
 
-export default withRouter(Home);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Home));

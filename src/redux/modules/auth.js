@@ -21,7 +21,11 @@ export const actions = {
             const params = { username, password };
             return http.post('/loginIn', params).then(res => {
                 console.log(res);
+                dispatch(appActions.finishRequest());
                 dispatch(actions.setLoginInfo(), res.data.userId, username);
+            }).catch(err => {
+                dispatch(appActions.finishRequest());
+                dispatch(appActions.setError(err));
             })
         }
     },

@@ -36,7 +36,7 @@ class HeaderBar extends React.Component {
                             style={{ lineHeight: '64px' }}
                             onClick={onChange}
                         >
-                            {list.map(item => <Menu.Item key={item.value}>{item.label}</Menu.Item>)}
+                            {list.length > 0 && list.map(item => <Menu.Item key={item.value}>{item.label}</Menu.Item>)}
                         </Menu>
                     </div>
                     <div className="header-right user-info-box">

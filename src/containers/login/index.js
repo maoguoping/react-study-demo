@@ -3,6 +3,7 @@ import ReactSVG from 'react-svg';
 import {Redirect} from 'react-router-dom';
 import { Form } from 'antd';
 import './style.scss';
+import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actions as authActions, getLoggeredUser} from '../../redux/modules/auth';
@@ -34,8 +35,7 @@ class Login extends React.Component {
     loginIn(data) {
         console.log(data);
         let {username, password} = data;
-        this.props.loginInAction(username, password);
-       
+        this.props.loginInAction(username, password);  
     }
 
     componentWillReceiveProps(nextProps) {
@@ -67,4 +67,4 @@ class Login extends React.Component {
         )
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Login));

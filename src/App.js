@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route , Switch} from 'react-router-dom';
 import './App.scss';
 import './mock/auth';
+import './mock/page';
 import Home from './containers/home';
 import Login from './containers/login';
 class App extends React.Component {
