@@ -1,6 +1,7 @@
 import React from 'react'
 import PropsTypes from 'prop-types';
 import {Menu, Icon } from 'antd';
+import { Link } from 'react-router-dom';
 const { SubMenu } = Menu;
 function SideMenu(props) {
     const {list, defaultValue, value} = props;
@@ -25,8 +26,10 @@ function SideMenu(props) {
                         >
                             {
                                 subItem.children.map(childrenItem => 
-                                    <Menu.Item key={childrenItem.value}>{childrenItem.label}
-                                    </Menu.Item>)
+                                    <Menu.Item key={childrenItem.value}>
+                                        {childrenItem.label}
+                                    </Menu.Item>
+                                )
                             }
                         </SubMenu>
                     )

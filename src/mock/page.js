@@ -7,15 +7,15 @@ Mock.mock('/getHeaderMenuList', 'get', {
         list: [
             {
                 value: '1',
-                label: 'nav1'
+                label: '管理中心',
             },
             {
                 value: '2',
-                label: 'nav2'
+                label: '数据中心'
             },
             {
                 value: '3',
-                label: 'nav3'
+                label: '设置'
             }
        ]
     }
@@ -33,61 +33,35 @@ Mock.mock('/getSideMenuList', 'get', {
                 children: [
                     {
                         value: 'child1',
-                        label: '用户列表'
+                        label: '用户列表',
+                        target: '/managerCenter/userList'
                     },
                     {
                         value: 'child2',
-                        label: '角色列表'
+                        label: '角色列表',
+                        target: '/managerCenter/roleList'
                     },
                     {
                         value: 'child3',
-                        label: '权限列表'
+                        label: '权限列表',
+                        target: '/managerCenter/rightList'
                     }
                 ]
             },
             {
                 value: 'sub2',
                 iconType: 'laptop',
-                label: 'subnav 2',
+                label: '设备管理',
                 children: [
+                    {
+                        value: 'child4',
+                        label: '设备列表',
+                        target: '/managerCenter/deviceList'
+                    },
                     {
                         value: 'child5',
-                        label: 'option5'
-                    },
-                    {
-                        value: 'child6',
-                        label: 'option6'
-                    },
-                    {
-                        value: 'child7',
-                        label: 'option7'
-                    },
-                    {
-                        value: 'child8',
-                        label: 'option8'
-                    }
-                ]
-            },
-            {
-                value: 'sub3',
-                iconType: 'notification',
-                label: 'subnav 3',
-                children: [
-                    {
-                        value: 'child9',
-                        label: 'option9'
-                    },
-                    {
-                        value: 'child10',
-                        label: 'option10'
-                    },
-                    {
-                        value: 'child11',
-                        label: 'option11'
-                    },
-                    {
-                        value: 'child12',
-                        label: 'option12'
+                        label: '设备事件',
+                        target: '/managerCenter/deviceEventsList'
                     }
                 ]
             }

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Layout, Menu, Avatar, Dropdown} from 'antd';
-import './HeaderBar.scss'
+import './style.scss'
 const {Header} = Layout;
 class HeaderBar extends React.Component {
     constructor(props) {

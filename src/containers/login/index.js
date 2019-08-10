@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { actions as authActions, getLoggeredUser} from '../../redux/modules/auth';
 import { getAppInfo } from '../../redux/modules/app';
 import loginSvg from '../../assets/animate/link.svg'
-import LoginBox from '../../components/module/LoginBox/LoginBox';
+import LoginBox from '../../components/module/loginBox';
 const mapStateToProps = state => {
     return {
         appInfo: getAppInfo(state),

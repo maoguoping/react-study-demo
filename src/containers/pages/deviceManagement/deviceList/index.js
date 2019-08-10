@@ -1,19 +1,19 @@
 import React from 'react';
 import {withRouter } from 'react-router';
-class About extends React.Component {
+class DeviceList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'mgp'
+      name: 'deviceList'
     }
   }
   render() {
     return (
       <div>
-      About123
+      DeviceList
       </div>
     )
   }
 }
 
-export default withRouter(About);
+export default withRouter(DeviceList);
