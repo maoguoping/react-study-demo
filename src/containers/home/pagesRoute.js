@@ -7,6 +7,7 @@ const AsyncDeviceEventsList = asyncComponent(() => import('../pages/deviceManage
 export const defaultPage = {
     name: 'userList',
     path: '/managerCenter/userList',
+    menuPath: ['1','sub1','child1'],
     component: AsyncUserList,
     exact: true
 };

@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route , Switch} from 'react-router-dom';
 import './App.scss';
-import './mock/auth';
-import './mock/page';
+import initMock from './mock';
 import Home from './containers/home';
 import Login from './containers/login';
+initMock();
 class App extends React.Component {
     render() {
         return (

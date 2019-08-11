@@ -19,6 +19,7 @@
     "react-scripts": "3.0.1",
     "react-svg": "^10.0.13",
     "redux": "^4.0.4",
+    "redux-saga": "^1.0.5",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {

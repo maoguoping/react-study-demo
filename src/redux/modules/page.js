@@ -1,6 +1,4 @@
 import { combineReducers } from 'redux';
-import { actions as appActions } from './app'
-import http from '../../utils/axios';
 const initialState = {
    currentPage: null,
    headerMenuList: [],
@@ -25,33 +23,21 @@ const initialState = {
 export const types = {
     GET_HEADER_MENU: 'GET_HEADER_MENU', // 获取header菜单
     GET_SIDE_MENU: 'GET_SIDE_MENU', // 获取side菜单
+    SET_HEADER_MENU: 'SET_HEADER_MENU', // 设置header菜单
+    SET_SIDE_MENU: 'SET_SIDE_MENU', // 设置side菜单
     SET_CURRENT_HEADER: 'SET_CURRENT_HEADER', // 设置头部菜单
     SET_CURRENT_SIDE: 'SET_CURRENT_SIDE', //设置侧菜单
 }
 
 export const actions = {
     getHeaderMenu: () => {
-        return (dispatch, getState) => {
-            dispatch(appActions.startRequest());
-            http.get('/getHeaderMenuList',{}).then(res => {
-                dispatch(appActions.finishRequest());
-                dispatch(getHeaderMenuSuccess(res.data.list));
-            }).catch(err => {
-                dispatch(appActions.finishRequest());
-                dispatch(appActions.setError(err));
-            })
+        return {
+            type: types.GET_HEADER_MENU
         }
     },
     getSideMenu: () => {
-        return (dispatch, getState) => {
-            dispatch(appActions.startRequest());
-            http.get('/getSideMenuList',{}).then(res => {
-                dispatch(appActions.finishRequest());
-                dispatch(getSideMenuSuccess(res.data.list));
-            }).catch(err => {
-                dispatch(appActions.finishRequest());
-                dispatch(appActions.setError(err));
-            })
+        return {
+            type: types.GET_SIDE_MENU
         }
     },
     setCurrentHeader: header => ({
@@ -61,29 +47,27 @@ export const actions = {
     setCurrentSide: side => ({
         type: types.SET_CURRENT_SIDE,
         side
-    })   
+    }),
+    setHeaderMenu: list => ({
+        type: types.SET_HEADER_MENU,
+        list
+    }),
+    setSideMenu: list => ({
+        type: types.SET_SIDE_MENU,
+        list 
+    })
 };
-
-const getHeaderMenuSuccess = list => ({
-    type: types.GET_HEADER_MENU,
-    list
-})
-
-const getSideMenuSuccess  = list => ({
-    type: types.GET_SIDE_MENU,
-    list 
-})
 
 //reducers
 const headerMenuList = (state = initialState.headerMenuList, action) => {
     switch(action.type) {
-        case types.GET_HEADER_MENU: return action.list;
+        case types.SET_HEADER_MENU: return action.list;
         default: return state;
     }
 }
 const sideMenuList = (state = initialState.sideMenuList, action) => {
     switch(action.type) {
-        case types.GET_SIDE_MENU: return action.list;
+        case types.SET_SIDE_MENU: return action.list;
         default: return state;
     }
 }
@@ -115,7 +99,6 @@ export const menuPathSelector = state => {
     const header = state.page.currentHeader;
     const sideOne = state.page.currentSide[0];
     const sideTwo = state.page.currentSide[1];
-    console.log('获取面包屑', state.page);
     return {
         pathList: [
             header.value,

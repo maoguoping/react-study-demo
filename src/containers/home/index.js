@@ -10,7 +10,6 @@ import { Layout, Breadcrumb } from 'antd';
 import HeadBar from '../../components/module/headerBar'
 import SideMenu from '../../components/module/sideMenu'
 const mapStateToProps = state => {
-    console.log(state)
     return {
         headerMenuList: headerMenuListSelector(state),
         sideMenuList: sideMenuListSelector(state),
@@ -31,14 +30,16 @@ class Home extends React.Component {
         super(props);
         let path = props.history.location.pathname;
         let menuPath = [];
-        console.log('历史', path);
-        for (const page of pageRouteList) {
-            if (page.path === path) {
-                menuPath = page.menuPath;
-                break;
+        if (path === '/') {
+            menuPath = defaultPage.menuPath;
+        } else {
+            for (const page of pageRouteList) {
+                if (page.path === path) {
+                    menuPath = page.menuPath;
+                    break;
+                }
             }
         }
-        console.log(menuPath.slice(1));
         this.state = {
             selectValue: menuPath.slice(1)
         }
@@ -50,7 +51,6 @@ class Home extends React.Component {
 
     changeTabMenu(e) {
         let {key} = e;
-        console.log(e);
         for(const item of this.props.headerMenuList) {
             if (item.value === key) {
                 this.setState({
@@ -69,7 +69,6 @@ class Home extends React.Component {
         let {keyPath} = e;
         keyPath = keyPath.reverse();
         const sideList = this.props.sideMenuList;
-        console.log(sideList);
         const firstSideValue = keyPath[0];
         const secondSideValue = keyPath[1];
         let firstSideLabel = null;
@@ -77,11 +76,9 @@ class Home extends React.Component {
         let target = null;
         for (const item of sideList) {
             if (item.value === firstSideValue) {
-                console.log('完成匹配1')
                 firstSideLabel = item.label;
                 for (const child of item.children) {
                     if (child.value === secondSideValue) {
-                        console.log('完成匹配2')
                         secondSideLabel = child.label;
                         target = child.target
                         break;
@@ -121,9 +118,6 @@ class Home extends React.Component {
     }
 
     render() {
-        const url = this.props.match.url;
-        console.log('value', this.state.selectValue);
-        console.log('defaultValue', this.defaultValue);
         return (
             <Layout className="App">
                 <HeadBar list={this.props.headerMenuList} onChange={this.changeTabMenu} onLogout={this.onLogout}></HeadBar>

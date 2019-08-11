@@ -1,7 +1,6 @@
 import React from 'react'
 import PropsTypes from 'prop-types';
 import {Menu, Icon } from 'antd';
-import { Link } from 'react-router-dom';
 const { SubMenu } = Menu;
 function SideMenu(props) {
     const {list, defaultValue, value} = props;
