@@ -1,7 +1,8 @@
-import pageSage from './modules/page'
-
+import pageSaga from './modules/page'
+import authSaga from './modules/auth'
 function* saga() {
-  yield pageSage();
+  yield pageSaga();
+  yield authSaga();
 }
 
 export default saga;

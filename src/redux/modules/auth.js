@@ -15,27 +15,21 @@ export const types = {
 export const actions = {
     //异步action，执行登录验证
     login: (username, password) => {
-        return dispatch => {
-            //每个api请求开始前发送action
-            dispatch(appActions.startRequest());
-            const params = { username, password };
-            return http.post('/loginIn', params).then(res => {
-                console.log(res);
-                dispatch(appActions.finishRequest());
-                dispatch(actions.setLoginInfo(), res.data.userId, username);
-            }).catch(err => {
-                dispatch(appActions.finishRequest());
-                dispatch(appActions.setError(err));
-            })
-        }
+        return {
+            type: types.LOGIN,
+            params: {
+                username,
+                password
+            }
+        }  
     },
     logout: () => ({
         type: types.LOGOUT
     }),
-    setLoginInfo: (userId, username) => ({
+    setLoginInfo: (data) => ({
         type: types.LOGIN,
-        userId,
-        username
+        userId: data.userId,
+        username: data.username
     })
 };
 

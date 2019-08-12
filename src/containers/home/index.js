@@ -109,7 +109,7 @@ class Home extends React.Component {
 
     onLogout() {
         console.log('退出登录');
-        this.props.history.push('/login',{from: '/home'});
+        this.props.history.push('/login',{from: this.props.history.location.pathname});
     }
     
     componentDidMount() {

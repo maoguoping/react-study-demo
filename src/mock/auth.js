@@ -5,7 +5,8 @@ export default function auth() {
         success: true,
         message: '登录成功',
         data: {
-            userId: '007'
+            userId: '007',
+            username: 'mgp'
         }
     });  
 } 

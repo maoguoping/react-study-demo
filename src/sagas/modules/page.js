@@ -6,7 +6,7 @@ import api from '../../api'
 const getHeaderMenu = function* () {
     put(appActions.startRequest());
     try {
-        const res = yield http.get(api.getHeaderMenuList, {});
+        const res = yield call(http.get, api.getHeaderMenuList, {});
         const list = res.data.list;
         yield put(pageActions.setHeaderMenu(list));
         put(appActions.finishRequest());
@@ -18,7 +18,7 @@ const getHeaderMenu = function* () {
 const getSideMenu = function* () {
     put(appActions.startRequest());
     try {
-        const res = yield http.get(api.getSideMenuList, {});
+        const res = yield call(http.get, api.getSideMenuList, {});
         const list = res.data.list;
         yield put(pageActions.setSideMenu(list));
         put(appActions.finishRequest());
