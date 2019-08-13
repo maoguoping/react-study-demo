@@ -1,10 +1,18 @@
 import Loadable from 'react-loadable'
+import React from 'react'
 import { Spin } from 'antd'
-const UserList = Loadable({loader: () => import('../pages/userManagement/userList'), loading: Spin});
-const RoleList = Loadable({loader: () => import('../pages/userManagement/roleList'), loading: Spin});
-const RightList = Loadable({loader: () => import('../pages/userManagement/rightList'), loading: Spin});
-const DeviceList = Loadable({loader: () => import('../pages/deviceManagement/deviceList'), loading: Spin});
-const DeviceEventsList = Loadable({loader: () => import('../pages/deviceManagement/deviceEventsList'), loading: Spin});
+function Loading() {
+    return (
+        <div className="page-loader loader-full">
+            <Spin size="large" delay="200"></Spin>
+        </div>
+    )
+}
+const UserList = Loadable({loader: () => import('../pages/userManagement/userList'), loading: Loading});
+const RoleList = Loadable({loader: () => import('../pages/userManagement/roleList'), loading: Loading});
+const RightList = Loadable({loader: () => import('../pages/userManagement/rightList'), loading: Loading});
+const DeviceList = Loadable({loader: () => import('../pages/deviceManagement/deviceList'), loading: Loading});
+const DeviceEventsList = Loadable({loader: () => import('../pages/deviceManagement/deviceEventsList'), loading: Loading});
 export const defaultPage = {
     name: 'userList',
     path: '/managerCenter/userList',

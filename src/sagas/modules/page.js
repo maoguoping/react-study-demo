@@ -1,4 +1,4 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { call, put, takeEvery } from 'redux-saga/effects'
 import { actions as pageActions, types as pageTypes} from '../../redux/modules/page'
 import { actions as appActions } from '../../redux/modules/app'
 import http from '../../utils/axios'

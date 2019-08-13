@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 import { Route , Switch} from 'react-router-dom'
-import { withRouter } from 'react-router';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { actions as pageActions, headerMenuListSelector, sideMenuListSelector, menuPathSelector } from '../../redux/modules/page';
-import './style.scss';
-import { pageRouteList, defaultPage} from './pagesRoute';
-import { Layout, Breadcrumb } from 'antd';
+import { withRouter } from 'react-router'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { actions as pageActions, headerMenuListSelector, sideMenuListSelector, menuPathSelector } from '../../redux/modules/page'
+import './style.scss'
+import { pageRouteList, defaultPage} from './pagesRoute'
+import { Layout, Breadcrumb } from 'antd'
 import HeadBar from '../../components/module/headerBar'
 import SideMenu from '../../components/module/sideMenu'
 const mapStateToProps = state => {
@@ -15,13 +15,13 @@ const mapStateToProps = state => {
         sideMenuList: sideMenuListSelector(state),
         menuPathInfo: menuPathSelector(state)
     }
-}
+};
 const mapDispatchToProps = dispatch => {
     return {
         getHeaderMenu: bindActionCreators(pageActions.getHeaderMenu, dispatch),
         getSideMenu: bindActionCreators(pageActions.getSideMenu, dispatch),
         setCurrentHeader: bindActionCreators(pageActions.setCurrentHeader, dispatch),
-        setCurrentSide: bindActionCreators(pageActions.setCurrentSide, dispatch),
+        setCurrentSide: bindActionCreators(pageActions.setCurrentSide, dispatch)
     }
 };
 const { Content, Sider } = Layout;

@@ -1,9 +1,9 @@
-import React from 'react';
-import { BrowserRouter as Router, Route , Switch} from 'react-router-dom';
-import './App.scss';
-import initMock from './mock';
-import Home from './containers/home';
-import Login from './containers/login';
+import React from 'react'
+import { BrowserRouter as Router, Route , Switch} from 'react-router-dom'
+import './App.scss'
+import initMock from './mock'
+import Home from './containers/home'
+import Login from './containers/login'
 initMock();
 class App extends React.Component {
     render() {

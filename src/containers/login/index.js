@@ -39,8 +39,9 @@ class Login extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
         const userInfo = nextProps.userInfo;
-        if (nextProps.userInfo.userId !== null) {
+        if (userInfo.userId !== null) {
             sessionStorage.setItem('username', userInfo.username);
             sessionStorage.setItem('userId', userInfo.userId);
             this.setState({

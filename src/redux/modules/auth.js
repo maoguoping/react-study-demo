@@ -1,14 +1,18 @@
-import { actions as appActions } from "./app";
-import http from "../../utils/axios";
+import { combineReducers } from 'redux'
 const initialState = {
-    userId: null,
-    username: null
+    userInfo: {
+        userId: null,
+        username: null,
+    },
+    roleList: []
 };
 
 //action types
 export const types = {
     LOGIN: 'AUTH/LOGIN', //登录
-    LOGOUT: 'AUTH/LOGOUT' //注销
+    LOGOUT: 'AUTH/LOGOUT', //注销
+    GET_ROLE_LIST: 'GET_ROLE_LIST', //获取角色列表
+    SET_ROLE_LIST: 'SET_ROLE_LIST', //设置角色列表
 };
 
 //action creators
@@ -23,6 +27,13 @@ export const actions = {
             }
         }  
     },
+    //异步action，执行登录验证
+    getRoleList: () => {
+        console.log('获取角色列表', types.GET_ROLE_LIST);
+        return {
+            type: types.GET_ROLE_LIST 
+        }
+    },
     logout: () => ({
         type: types.LOGOUT
     }),
@@ -30,11 +41,15 @@ export const actions = {
         type: types.LOGIN,
         userId: data.userId,
         username: data.username
+    }),
+    setRoleList: list => ({
+        type: types.SET_ROLE_LIST,
+        list
     })
 };
 
 //reducers
-const reducer = (state = initialState, action) => {
+const userInfo = (state = initialState.userInfo, action) => {
     switch (action.type) {
         case types.LOGIN: 
             return { ...state, userId: action.userId, username: action.username };
@@ -44,10 +59,21 @@ const reducer = (state = initialState, action) => {
             return state;
     }
 }
+//reducers
+const roleList = (state = initialState.roleList, action) => {
+    switch (action.type) {
+        case types.SET_ROLE_LIST: 
+            return action.list;
+        default:
+            return state;
+    }
+}
+const reducer = combineReducers({
+    userInfo,
+    roleList
+});
 export default reducer;
 
 //selectors
-export const getLoggeredUser = state => ({
-    userId: state.userId,
-    username: state.username
-});
+export const getLoggeredUser = state => state.auth.userInfo;
+export const roleListSelector = state => state.auth.roleList;
