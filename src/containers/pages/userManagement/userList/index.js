@@ -2,10 +2,15 @@ import React from 'react'
 import {withRouter } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { actions as appActions } from '../../../../redux/modules/app'
 import { actions as authActions, roleListSelector } from '../../../../redux/modules/auth'
 import './style.scss'
+import http from '../../../../utils/axios'
+import api from '../../../../api/index'
+import { message } from 'antd'
 import SearchBox from '../../../../components/module/searchBox' 
 import UserListTable from './components/userListTable'
+import Modal from '../../../../components/module/dialogModal'
 const mapStateToProps = state => {
   return {
     roleList: roleListSelector(state)
@@ -14,7 +19,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   console.log('执行绑定')
   return {
-    getRoleList: bindActionCreators(authActions.getRoleList, dispatch)
+    getRoleList: bindActionCreators(authActions.getRoleList, dispatch),
+    setError: bindActionCreators(appActions.setError, dispatch)
   }
 };
 class UserList extends React.Component {
@@ -22,6 +28,7 @@ class UserList extends React.Component {
     super(props);
     this.state = {
       name: 'userList',
+      showDeleteModal: false,
       searchList: [
         {
           label: '用户名',
@@ -42,15 +49,63 @@ class UserList extends React.Component {
           name: 'roleId',
           options: []
         }
-      ]
-    }
+      ],
+      tableData: []
+    };
+    this.deleteModalData = {
+      title: '删除用户',
+      text: '确定要删除该用户？',
+      type: 'question-circle'
+    };
+    this.deleteList = [];
+  }
+  getUserList() {
+    http.post(api.getUserList,{}).then(res => {
+      console.log(res);
+      this.setState({
+        tableData: res.data.list
+      })
+    }).catch(err => {
+      this.props.setError(err);
+    })
+  }
+  deleteUser() {
+    http.get(api.deleteUser,{
+      userId: this.deleteList[0]
+    }).then(res => {
+      message.success('删除用户成功');
+      this.getUserList();
+    }).catch(err => {
+      this.props.setError(err);
+    })
+  }
+  onDeleteUser = (e) => {
+    console.log('delete', e)
+    this.deleteList = [];
+    this.deleteList.push(e.userId);
+    this.setState({
+      showDeleteModal: true
+    })
+  }
+  onDeleteConfirm = (e) => {
+    this.setState({
+      showDeleteModal: false
+    })
+    this.deleteUser();
+  }
+  onDeleteCancel = (e) => {
+    this.deleteList = [];
+    this.setState({
+      showDeleteModal: false
+    })
   }
   componentDidMount() {
     console.log(this.props)
     this.props.getRoleList();
+    this.getUserList();
   }
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.roleList.length != prevState.searchList[2].options.length) {
+    if (nextProps.roleList.length !== prevState.searchList[2].options.length) {
       console.log('发生改变')
       return {
         roleList: nextProps.roleList
@@ -59,8 +114,7 @@ class UserList extends React.Component {
     return null;
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log('发生改变2', this.props.roleList)
-    if (prevProps.roleList.length != this.props.roleList.length) {
+    if (prevProps.roleList.length !== this.state.searchList[2].options.length) {
       const searchList = this.state.searchList.map(item => {
         if (item.name === 'roleId') {
           item.options = this.props.roleList;
@@ -79,8 +133,9 @@ class UserList extends React.Component {
           <SearchBox  list={this.state.searchList}></SearchBox>
         </div>
         <div className="user-list-content">
-          <UserListTable></UserListTable>
+          <UserListTable data={this.state.tableData} roleList={this.props.roleList} onDelete={this.onDeleteUser}></UserListTable>
         </div>
+        <Modal value={this.state.showDeleteModal} data={this.deleteModalData} onConfirm={this.onDeleteConfirm} onCancel = {this.onDeleteCancel}></Modal>
       </div>
     )
   }

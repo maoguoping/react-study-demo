@@ -49,7 +49,7 @@ class LoginBox extends React.Component {
                         })(<Checkbox>记住密码</Checkbox>)}
                         <a className="login-form-forgot">
                             忘记密码
-          </a>
+                        </a>
                         <Button type="primary" htmlType="submit" className="login-form-button">
                             登录
           </Button>

@@ -1,84 +1,78 @@
 import React from 'react'
-import { Table, Divider, Tag } from 'antd';
-
-const columns = [
-  {
-    title: '用户名',
-    dataIndex: 'username',
-    key: 'username',
-    render: text => <a href="javascript:;">{text}</a>,
-  },
-  {
-    title: '用户昵称',
-    dataIndex: 'userTickname',
-    key: 'userTickname',
-  },
-  {
-    title: '用户id',
-    dataIndex: 'userId',
-    key: 'userId',
-  },
-  {
-    title: '角色',
-    key: 'roleId',
-    dataIndex: 'roleId',
-    render: roleId => (
-      <span>
-        {roleId.map(tag => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </span>
-    ),
-  },
-  {
-    title: '操作',
-    key: 'action',
-    render: (text, record) => (
-      <span>
-        <a href="javascript:;">详情 {record.name}</a>
-        <Divider type="vertical" />
-        <a href="javascript:;">删除</a>
-      </span>
-    ),
-  },
-];
-const data = [
-  {
-    key: '1',
-    username: 'John Brown',
-    userTickname: '2342',
-    userId: '1231',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    roleId: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    username: 'Jim Green',
-    userTickname: '2342',
-    userId: '1231',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    roleId: ['loser'],
-  },
-  {
-    key: '3',
-    username: 'Joe Black',
-    userTickname: '2342',
-    userId: '1231',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    roleId: ['cool', 'teacher'],
-  },
-];
-export default function UserListTable() {
-    return <Table className="user-list-table" columns={columns} dataSource={data} bordered/>
-}
+import { Table, Divider, Tag } from 'antd'
+import './style.scss'
+class UserListTable extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  onDelete(e) {
+    this.props.onDelete(e);
+  }
+  render () {
+    let roleMap = new Map();
+    if (this.props.roleList.length > 0) {
+      this.props.roleList.forEach(item => {
+        roleMap.set(item.value, item.label);
+      })
+    }
+    this.columns = [
+      {
+        title: '用户名',
+        dataIndex: 'username',
+        key: 'username',
+        render: text => <a href="javascript:;">{text}</a>,
+      },
+      {
+        title: '用户昵称',
+        dataIndex: 'userTickname',
+        key: 'userTickname',
+      },
+      {
+        title: '用户id',
+        dataIndex: 'userId',
+        key: 'userId',
+      },
+      {
+        title: '角色',
+        key: 'roleId',
+        dataIndex: 'roleId',
+        render: roleId => (
+          <span>
+            {roleId.map(tag => {
+              let color = tag.length > 5 ? 'geekblue' : 'green';
+              if (tag === '00') {
+                color = 'volcano';
+              }
+              if (tag === '10') {
+                color = 'gold';
+              }
+              if (tag === '20') {
+                color = 'blue';
+              }
+              return (
+                <Tag color={color} key={tag}>
+                  {roleMap.get(tag)}
+                </Tag>
+              );
+            })}
+          </span>
+        ),
+      },
+      {
+        title: '操作',
+        key: 'action',
+        render: (text, record) => (
+          <span>
+            <span className="table-action-btn detail">详情</span>
+            <Divider type="vertical" />
+            <span className="table-action-btn delete" onClick={this.onDelete.bind(this, text, record)}>删除</span>
+          </span>
+        ),
+      },
+    ];
+    return (
+      <Table className="user-list-table" columns={this.columns} dataSource={this.props.data} bordered />
+    )
+  }
+};
+export default UserListTable;

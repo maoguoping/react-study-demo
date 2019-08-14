@@ -1,7 +1,8 @@
+import { combineReducers } from 'redux';
 const initialState = {
     requestQuantity: 0, //当前应用中正在运行的api请求数
     error: null,    //应用全局错误信息
-}
+};
 
 //action types
 export const types = {
@@ -29,7 +30,7 @@ export const actions = {
 };
 
 //reducers
-const reducer = (state = initialState, action) => {
+const requestQuantity = (state = initialState.requestQuantity, action) => {
     switch (action.type) {
         case types.START_REQUEST: 
             //每接收一个api请求开始的action，requestQuantity加一
@@ -37,6 +38,12 @@ const reducer = (state = initialState, action) => {
         case types.FINISH_REQUEST:
             //每接收一个api请求开始的action，requestQuantity减一
             return { ...state, requestQuantity: state.requestQuantity - 1 };
+        default:
+            return state;
+    }
+}
+const error = (state = initialState.error, action) => {
+    switch (action.type) {
         case types.SET_ERROR:
             return { ...state, error: action.error};
         case types.REMOVE_ERROR:
@@ -45,6 +52,10 @@ const reducer = (state = initialState, action) => {
             return state;
     }
 }
+const reducer = combineReducers({
+    requestQuantity,
+    error
+});
 export default reducer;
 
 //selectors

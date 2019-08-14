@@ -23,11 +23,12 @@ const getSideMenu = function* () {
         yield put(pageActions.setSideMenu(list));
         put(appActions.finishRequest());
     } catch (err) {
-        put(appActions.finishRequest());
         yield put(appActions.setError(err));
+        put(appActions.finishRequest());
     }
 }
 export default function* initPageSaga() {
+    console.log('监听page');
     yield takeEvery(pageTypes.GET_HEADER_MENU, getHeaderMenu);
     yield takeEvery(pageTypes.GET_SIDE_MENU, getSideMenu);
 }

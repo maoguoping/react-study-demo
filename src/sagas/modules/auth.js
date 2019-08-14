@@ -16,19 +16,19 @@ const loginIn = function* (params) {
     }
 }
 const getRoleList = function* (params) {
-    console.log('获取角色列表')
     put(appActions.startRequest());
     try {
-        const res = yield call(http.get, api.getRoleList, params);
+        const res = yield call(http.get, api.getRoleList, {});
         const data = res.data.list;
-        put(appActions.finishRequest());
         yield put(authActions.setRoleList(data));
-    } catch (err) {
         put(appActions.finishRequest());
+    } catch (err) {
         yield put(appActions.setError(err));
+        put(appActions.finishRequest());
     }
 }
 export default function* initAuthSaga() {
-    takeEvery(authTypes.LOGIN, loginIn);
-    takeEvery(authTypes.GET_ROLE_LIST, getRoleList);
-}
+    console.log('监听auth');
+    yield takeEvery(authTypes.GET_ROLE_LIST, getRoleList);
+    yield takeEvery(authTypes.LOGIN, loginIn);
+}; 
