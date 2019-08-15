@@ -1,6 +1,6 @@
 import Mock from 'mockjs';
 export default function page() {
-    Mock.mock('/getHeaderMenuList', 'get', {
+    Mock.mock(/\/getHeaderMenuList/, 'get', {
         code: 0,
         success: true,
         message: '成功',
@@ -21,7 +21,7 @@ export default function page() {
            ]
         }
     });
-    Mock.mock('/getSideMenuList', 'get', {
+    Mock.mock(/\/getSideMenuList/, 'get', {
         code: 0,
         success: true,
         message: '成功',

@@ -59,8 +59,9 @@ class UserList extends React.Component {
     };
     this.deleteList = [];
   }
-  getUserList() {
-    http.post(api.getUserList,{}).then(res => {
+  getUserList(info) {
+    let params = info || {};
+    http.post(api.getUserList,params).then(res => {
       console.log(res);
       this.setState({
         tableData: res.data.list
@@ -99,6 +100,17 @@ class UserList extends React.Component {
       showDeleteModal: false
     })
   }
+  onSearch = (e) => {
+    console.log('搜索信息', e);
+    let userId = e.userId || '';
+    let roleId = e.roleId || '';
+    let username = e.username || '';
+    this.getUserList({
+      userId,
+      roleId,
+      username
+    });
+  }
   componentDidMount() {
     console.log(this.props)
     this.props.getRoleList();
@@ -115,6 +127,7 @@ class UserList extends React.Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.roleList.length !== this.state.searchList[2].options.length) {
+      console.log('发生改变2')
       const searchList = this.state.searchList.map(item => {
         if (item.name === 'roleId') {
           item.options = this.props.roleList;
@@ -130,7 +143,7 @@ class UserList extends React.Component {
     return (
       <div className="user-list-page">
         <div className="user-list-search">
-          <SearchBox  list={this.state.searchList}></SearchBox>
+          <SearchBox  list={this.state.searchList} onSearch={this.onSearch}></SearchBox>
         </div>
         <div className="user-list-content">
           <UserListTable data={this.state.tableData} roleList={this.props.roleList} onDelete={this.onDeleteUser}></UserListTable>

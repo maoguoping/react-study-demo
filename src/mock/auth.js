@@ -48,7 +48,7 @@ let userList = [
     }
 ]
 export default function auth() {
-    Mock.mock('/loginIn', 'post', {
+    Mock.mock(/\/loginIn/, 'post', {
         code: 0,
         success: true,
         message: '登录成功',
@@ -57,12 +57,16 @@ export default function auth() {
             username: 'mgp'
         }
     });
-    Mock.mock('/getRoleList', 'get', {
+    Mock.mock(/\/getRoleList/, 'get', {
         code: 0,
         success: true,
         message: '获取成功',
         data: {
             list: [
+                {
+                    value: '',
+                    label: '全部'
+                },
                 {
                     value: '00',
                     label: '超级管理员'
@@ -83,17 +87,38 @@ export default function auth() {
             total: 2
         }
     });
-    Mock.mock('/getUserList', 'post', (options) => ({
-        code: 0,
-        success: true,
-        message: '获取成功',
-        data: {
-            list: userList,
-            page: 1,
-            size: 10,
-            total: 3
+    Mock.mock(/\/getUserList/, 'post', (options) =>{
+        const { userId, roleId, username } = JSON.parse(options.body);
+        const filterList = userList.filter(item => {
+            if (userId) {
+                if(userId !== item.userId) {
+                    return false;
+                }
+            }
+            if (roleId) {
+                if(!item.roleId.includes(roleId)) {
+                    return false;
+                }
+            }
+            if (username) {
+                if(username !== item.username) {
+                    return false;
+                }
+            }
+            return true;
+        })
+        return  {
+            code: 0,
+            success: true,
+            message: '获取成功',
+            data: {
+                list: filterList,
+                page: 1,
+                size: 10,
+                total: 3
+            }
         }
-    }));
+    });
     Mock.mock(/\/deleteUser/, 'get', (options) => {
         let params = getParams(options.url) 
         userList = userList.filter(item => {
