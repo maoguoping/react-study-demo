@@ -1,5 +1,5 @@
 import React from 'react'
-import { withRoute } from 'react-router'
+import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 class UserDetail extends React.Component {
     constructor(props) {
@@ -13,4 +13,4 @@ class UserDetail extends React.Component {
         )
     }
 }
-export default withRoute(UserDetail)
+export default withRouter(UserDetail)

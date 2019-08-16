@@ -9,6 +9,7 @@ function Loading() {
     )
 }
 const UserList = Loadable({loader: () => import('../pages/userManagement/userList'), loading: Loading});
+const UserDetail = Loadable({loader: () => import('../pages/userManagement/userList/pages/userDetail'), loading: Loading});
 const RoleList = Loadable({loader: () => import('../pages/userManagement/roleList'), loading: Loading});
 const RightList = Loadable({loader: () => import('../pages/userManagement/rightList'), loading: Loading});
 const DeviceList = Loadable({loader: () => import('../pages/deviceManagement/deviceList'), loading: Loading});
@@ -27,6 +28,13 @@ export const pageRouteList = [
         menuPath: ['1','sub1','child1'],
         component: UserList,
         exact: true
+    },
+    {
+        name: 'userDetail',
+        path: '/managerCenter/userDetail',
+        menuPath: ['1','sub1','child1'],
+        component: UserDetail,
+        exact: false
     },
     {
         name: 'roleList',

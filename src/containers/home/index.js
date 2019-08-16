@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { actions as pageActions, headerMenuListSelector, sideMenuListSelector, menuPathSelector } from '../../redux/modules/page'
 import './style.scss'
 import { pageRouteList, defaultPage} from './pagesRoute'
-import { Layout, Breadcrumb } from 'antd'
+import { Layout, Breadcrumb, PageHeader, Button, Icon } from 'antd'
 import HeadBar from '../../components/module/headerBar'
 import SideMenu from '../../components/module/sideMenu'
 const mapStateToProps = state => {
@@ -111,7 +111,9 @@ class Home extends React.Component {
         console.log('退出登录');
         this.props.history.push('/login',{from: this.props.history.location.pathname});
     }
-    
+    onBack = () => {
+        this.props.history.goBack();
+    }
     componentDidMount() {
         this.props.getHeaderMenu();
         this.props.getSideMenu();
@@ -126,9 +128,12 @@ class Home extends React.Component {
                         <SideMenu value={this.state.selectValue} defaultValue={this.defaultValue} list={this.props.sideMenuList} onClick={this.changeSideMenu}></SideMenu>
                     </Sider>
                     <Layout style={{ padding: '0 24px 24px' }}>
-                        <Breadcrumb style={{ margin: '16px 0' }}>
-                            {this.props.menuPathInfo.pathNameList.map(item => <Breadcrumb.Item key={'list' + item}>{item}</Breadcrumb.Item>)}
-                        </Breadcrumb>
+                        <div className="navigator-bar">
+                            <Breadcrumb className="page-breadcrumb" style={{ margin: '16px 0' }}>
+                                {this.props.menuPathInfo.pathNameList.map(item => <Breadcrumb.Item key={'list' + item}>{item}</Breadcrumb.Item>)}
+                            </Breadcrumb>
+                            <Button type="primary" onClick={this.onBack}>返回</Button>
+                        </div>
                         <Content
                             style={{
                                 background: '#fff',

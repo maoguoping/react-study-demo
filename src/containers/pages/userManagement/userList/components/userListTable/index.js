@@ -8,6 +8,9 @@ class UserListTable extends React.Component {
   onDelete(e) {
     this.props.onDelete(e);
   }
+  onDetail(e) {
+    this.props.onDetail(e);
+  }
   render () {
     let roleMap = new Map();
     if (this.props.roleList.length > 0) {
@@ -63,7 +66,7 @@ class UserListTable extends React.Component {
         key: 'action',
         render: (text, record) => (
           <span>
-            <span className="table-action-btn detail">详情</span>
+            <span className="table-action-btn detail" onClick={this.onDetail.bind(this, text, record)}>详情</span>
             <Divider type="vertical" />
             <span className="table-action-btn delete" onClick={this.onDelete.bind(this, text, record)}>删除</span>
           </span>

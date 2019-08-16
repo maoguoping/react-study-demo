@@ -39,4 +39,13 @@
 }
 .main {
   height: 100%;
+  .navigator-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .page-breadcrumb {
+      display: inline-block !important;
+      max-width: 50%;
+    }
+  }
 }

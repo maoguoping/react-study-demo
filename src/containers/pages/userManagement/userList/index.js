@@ -111,6 +111,11 @@ class UserList extends React.Component {
       username
     });
   }
+  onDetail = (e) => {
+    console.log('查看详情');
+    let userId = e.userId || '';
+    this.props.history.push(`/managerCenter/userDetail?userId=${userId}`);
+  }
   componentDidMount() {
     console.log(this.props)
     this.props.getRoleList();
@@ -146,7 +151,7 @@ class UserList extends React.Component {
           <SearchBox  list={this.state.searchList} onSearch={this.onSearch}></SearchBox>
         </div>
         <div className="user-list-content">
-          <UserListTable data={this.state.tableData} roleList={this.props.roleList} onDelete={this.onDeleteUser}></UserListTable>
+          <UserListTable data={this.state.tableData} roleList={this.props.roleList} onDelete={this.onDeleteUser} onDetail={this.onDetail}></UserListTable>
         </div>
         <Modal value={this.state.showDeleteModal} data={this.deleteModalData} onConfirm={this.onDeleteConfirm} onCancel = {this.onDeleteCancel}></Modal>
       </div>
