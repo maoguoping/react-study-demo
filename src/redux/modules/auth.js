@@ -10,7 +10,10 @@ const initialState = {
 //action types
 export const types = {
     LOGIN: 'AUTH/LOGIN', //登录
+    LOGIN_SUCCESS:'LOGIN_SUCCESS', //登录成功
+    LOGIN_ERROR:'LOGIN_ERROR', //登录失败
     LOGOUT: 'AUTH/LOGOUT', //注销
+    SET_USER_INFO: 'SET_USER_INFO', //设置用户信息
     GET_ROLE_LIST: 'GET_ROLE_LIST', //获取角色列表
     SET_ROLE_LIST: 'SET_ROLE_LIST', //设置角色列表
 };
@@ -27,6 +30,23 @@ export const actions = {
             }
         }  
     },
+    loginSuccess: (data) => ({
+        type: types.LOGIN_SUCCESS,
+        userId: data.userId,
+        username: data.username 
+    }),
+    loginError: (err) => ({
+        type: types.LOGIN_ERROR,
+        err
+    }),
+    logout: () => ({
+        type: types.LOGOUT
+    }),
+    setLoginInfo: (data) => ({
+        type: types.SETLOGIN,
+        userId: data.userId,
+        username: data.username
+    }),
     //异步action，执行登录验证
     getRoleList: () => {
         console.log('获取角色列表', types.GET_ROLE_LIST);
@@ -34,14 +54,6 @@ export const actions = {
             type: types.GET_ROLE_LIST 
         }
     },
-    logout: () => ({
-        type: types.LOGOUT
-    }),
-    setLoginInfo: (data) => ({
-        type: types.LOGIN,
-        userId: data.userId,
-        username: data.username
-    }),
     setRoleList: list => ({
         type: types.SET_ROLE_LIST,
         list
@@ -51,10 +63,10 @@ export const actions = {
 //reducers
 const userInfo = (state = initialState.userInfo, action) => {
     switch (action.type) {
-        case types.LOGIN: 
+        case types.SET_USER_INFO: 
             return { ...state, userId: action.userId, username: action.username };
-        case types.LOGOUT:
-                return { ...state, userId: null, username: null };
+        case types.LOGIN_SUCCESS:
+            return { ...state, userId: action.userId, username: action.username };
         default:
             return state;
     }
