@@ -139,7 +139,7 @@ class Home extends React.Component {
             let currentPage = this.props.currentPage;
             if (!currentPage || currentPage.pathname !== pathname ) {
                 let currentPageRoute = null;
-                if (pathname === defaultPage.path) {
+                if (pathname === defaultPage.path || pathname === '/') {
                     currentPageRoute = defaultPage
                 } else {
                     for(const o of pageRouteList) {

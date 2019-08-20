@@ -136,5 +136,50 @@ export default function auth() {
                userId: params.userId
             }
         }
-    });  
+    });
+    Mock.mock(/\/getUserDetailById/, 'get', (options) => {
+        let params = getParams(options.url);
+        let data = userList.filter(item => item.userId == params.userId)
+        return {
+            code: 0,
+            success: true,
+            message: '获取成功',
+            data: data[0]
+        }
+    });
+    Mock.mock(/\/setUserDetailById/, 'get',(options) => {
+        let params = getParams(options.url);
+        console.log('接口获取', options.url, params);
+        for(const o of userList) {
+            if (o.userId == params.userId) {
+                o.username = params.username;
+                o.userTickname = params.userTickname;
+                break;
+            }
+        }
+        return {
+            code: 0,
+            success: true,
+            message: '获取成功',
+            data: null
+        }
+    })
+    Mock.mock(/\/addUser/, 'get',(options) => {
+        let params = getParams(options.url);
+        userList.push({
+            key: '6',
+            username: params.username,
+            userTickname:  params.userTickname,
+            userId: '6',
+            age: 32,
+            address: 'Sidney No. 1 Lake Park',
+            roleId: ['20'],
+        });
+        return {
+            code: 0,
+            success: true,
+            message: '添加成功',
+            data: null
+        }
+    })
 } 

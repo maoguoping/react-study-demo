@@ -2,9 +2,6 @@ import React from 'react'
 import { Table, Divider, Tag } from 'antd'
 import './style.scss'
 class UserListTable extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   onDelete(e) {
     this.props.onDelete(e);
   }

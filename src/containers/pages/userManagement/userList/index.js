@@ -7,7 +7,7 @@ import { actions as authActions, roleListSelector } from '../../../../redux/modu
 import './style.scss'
 import http from '../../../../utils/axios'
 import api from '../../../../api/index'
-import { message } from 'antd'
+import { message, Button } from 'antd'
 import SearchBox from '../../../../components/module/searchBox' 
 import UserListTable from './components/userListTable'
 import Modal from '../../../../components/module/dialogModal'
@@ -88,6 +88,9 @@ class UserList extends React.Component {
       showDeleteModal: true
     })
   }
+  onAddUser = () => {
+    this.props.history.push(`/managerCenter/userDetail?mode=new`);
+  }
   onDeleteConfirm = (e) => {
     this.setState({
       showDeleteModal: false
@@ -114,7 +117,7 @@ class UserList extends React.Component {
   onDetail = (e) => {
     console.log('查看详情');
     let userId = e.userId || '';
-    this.props.history.push(`/managerCenter/userDetail?userId=${userId}`);
+    this.props.history.push(`/managerCenter/userDetail?mode=edit&userId=${userId}`);
   }
   componentDidMount() {
     console.log(this.props)
@@ -149,6 +152,9 @@ class UserList extends React.Component {
       <div className="user-list-page">
         <div className="user-list-search">
           <SearchBox  list={this.state.searchList} onSearch={this.onSearch}></SearchBox>
+        </div>
+        <div className="user-list-action-bar">
+          <Button type="primary" onClick={this.onAddUser}>新增</Button>
         </div>
         <div className="user-list-content">
           <UserListTable data={this.state.tableData} roleList={this.props.roleList} onDelete={this.onDeleteUser} onDetail={this.onDetail}></UserListTable>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Button ,Icon } from 'antd'
+import { Modal, Icon } from 'antd'
 import './style.scss'
 class DialogModal extends React.Component {
     constructor(props) {
@@ -30,7 +30,7 @@ class DialogModal extends React.Component {
       return null;
     }
     componentDidUpdate(prevProps, prevState) {
-      if (prevState.visible != this.props.value) {
+      if (prevState.visible !== this.props.value) {
         this.setState({
           visible: this.props.value
         });
