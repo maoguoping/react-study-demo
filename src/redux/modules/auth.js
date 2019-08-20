@@ -43,7 +43,7 @@ export const actions = {
         type: types.LOGOUT
     }),
     setLoginInfo: (data) => ({
-        type: types.SETLOGIN,
+        type: types.SET_USER_INFO,
         userId: data.userId,
         username: data.username
     }),
@@ -67,6 +67,8 @@ const userInfo = (state = initialState.userInfo, action) => {
             return { ...state, userId: action.userId, username: action.username };
         case types.LOGIN_SUCCESS:
             return { ...state, userId: action.userId, username: action.username };
+        case types.LOGOUT:
+            return { ...state, userId: null, username: null}
         default:
             return state;
     }
@@ -87,5 +89,5 @@ const reducer = combineReducers({
 export default reducer;
 
 //selectors
-export const getLoggeredUser = state => state.auth.userInfo;
+export const userInfoSelector = state => state.auth.userInfo;
 export const roleListSelector = state => state.auth.roleList;

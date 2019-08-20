@@ -7,6 +7,7 @@ const loginIn = function* (params) {
     put(appActions.startRequest());
     try {
         const res = yield call(http.post, api.loginIn, params);
+        console.debug('登陆', res);
         const data = res.data;
         yield put(authActions.loginSuccess(data))
         put(appActions.finishRequest());
@@ -32,20 +33,19 @@ const getRoleList = function* (params) {
     }
 }
 const loginFlowWatcher = function* () {
-    console.log('login初始化');
     while(true) {
         const { params } =  yield take(authTypes.LOGIN);
-        console.log('收到登录');
         const task = yield fork(loginIn, params);
+        console.debug('监听退出登陆');
         const action = yield take([authTypes.LOGOUT, authTypes.LOGIN_ERROR])
         if(action.type === authTypes.LOGOUT) {
             yield cancel(task);
         }
+        console.debug('清除登陆信息');
         yield put(authActions.setLoginInfo({userId: null, username: null}));
     }
 }
 const roleListFlowWatcher = function* () {
-    console.log('roleList初始化');
     while(true) {
         yield take(authTypes.GET_ROLE_LIST);
         const list = yield call(getRoleList);

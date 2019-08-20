@@ -6,14 +6,14 @@ import './style.scss';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { actions as authActions, getLoggeredUser} from '../../redux/modules/auth';
+import { actions as authActions, userInfoSelector} from '../../redux/modules/auth';
 import { getAppInfo } from '../../redux/modules/app';
 import loginSvg from '../../assets/animate/link.svg'
 import LoginBox from '../../components/module/loginBox';
 const mapStateToProps = state => {
     return {
         appInfo: getAppInfo(state),
-        userInfo: getLoggeredUser(state)
+        userInfo: userInfoSelector(state)
     }
 }
 const mapDispatchToProps = dispatch => {
@@ -29,7 +29,6 @@ class Login extends React.Component {
             redirectToReferrer: false
         }
         this.loginIn = this.loginIn.bind(this);
-        
     }
 
     loginIn(data) {

@@ -4,6 +4,7 @@ import './App.scss'
 import initMock from './mock'
 import Home from './containers/home'
 import Login from './containers/login'
+import NotFound from './containers/notfound'
 initMock();
 class App extends React.Component {
     render() {
@@ -13,6 +14,7 @@ class App extends React.Component {
                     <Route exact path="/" component={Home} />
                     <Route path="/managerCenter" component={Home} />
                     <Route path="/login" component={Login} />
+                    <Route component={NotFound}></Route>
                 </Switch>
            </Router>
         )

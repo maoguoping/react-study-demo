@@ -34,6 +34,13 @@ export const pageRouteList = [
         path: '/managerCenter/userDetail',
         menuPath: ['1','sub1','child1'],
         component: UserDetail,
+        parent: '/managerCenter/userList',
+        innerPage: [
+            {
+                value: 'userDetail',
+                label: '用户详情'
+            }
+        ],
         exact: false
     },
     {

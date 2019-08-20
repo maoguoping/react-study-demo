@@ -1,9 +1,20 @@
 import React from 'react'
-import { Route , Switch} from 'react-router-dom'
+import { Route , Switch, Redirect} from 'react-router-dom'
 import { withRouter } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { actions as pageActions, headerMenuListSelector, sideMenuListSelector, menuPathSelector } from '../../redux/modules/page'
+import { 
+    actions as pageActions,
+    headerMenuListSelector,
+    sideMenuListSelector,
+    menuPathSelector,
+    innerPageSelector,
+    currentPageSelector
+} from '../../redux/modules/page'
+import { 
+    actions as authActions,
+    userInfoSelector 
+} from '../../redux/modules/auth'
 import './style.scss'
 import { pageRouteList, defaultPage} from './pagesRoute'
 import { Layout, Breadcrumb, PageHeader, Button, Icon } from 'antd'
@@ -13,7 +24,10 @@ const mapStateToProps = state => {
     return {
         headerMenuList: headerMenuListSelector(state),
         sideMenuList: sideMenuListSelector(state),
-        menuPathInfo: menuPathSelector(state)
+        menuPathInfo: menuPathSelector(state),
+        userInfo: userInfoSelector(state),
+        innerPageList: innerPageSelector(state),
+        currentPage: currentPageSelector(state)
     }
 };
 const mapDispatchToProps = dispatch => {
@@ -21,7 +35,10 @@ const mapDispatchToProps = dispatch => {
         getHeaderMenu: bindActionCreators(pageActions.getHeaderMenu, dispatch),
         getSideMenu: bindActionCreators(pageActions.getSideMenu, dispatch),
         setCurrentHeader: bindActionCreators(pageActions.setCurrentHeader, dispatch),
-        setCurrentSide: bindActionCreators(pageActions.setCurrentSide, dispatch)
+        setCurrentSide: bindActionCreators(pageActions.setCurrentSide, dispatch),
+        logout: bindActionCreators(authActions.logout, dispatch),
+        setInnerPage: bindActionCreators(pageActions.setInnerPage, dispatch),
+        setCurrentPage: bindActionCreators(pageActions.setCurrentPage, dispatch),
     }
 };
 const { Content, Sider } = Layout;
@@ -108,8 +125,7 @@ class Home extends React.Component {
     }
 
     onLogout() {
-        console.log('退出登录');
-        this.props.history.push('/login',{from: this.props.history.location.pathname});
+        this.props.logout();
     }
     onBack = () => {
         this.props.history.goBack();
@@ -117,9 +133,39 @@ class Home extends React.Component {
     componentDidMount() {
         this.props.getHeaderMenu();
         this.props.getSideMenu();
+        //监听路由变化
+        this.props.history.listen(data => {
+            let pathname = data.pathname;
+            let currentPage = this.props.currentPage;
+            if (!currentPage || currentPage.pathname !== pathname ) {
+                let currentPageRoute = null;
+                if (pathname === defaultPage.path) {
+                    currentPageRoute = defaultPage
+                } else {
+                    for(const o of pageRouteList) {
+                        if (o.path == pathname) {
+                            currentPageRoute = o;
+                            break;
+                        }
+                    }
+                }
+                this.props.setInnerPage(currentPageRoute.innerPage ? currentPageRoute.innerPage : []);
+                this.props.setCurrentPage(currentPageRoute);
+            }
+        })
     }
-
+    componentDidUpdate(prevProps, prevState) {}
     render() {
+        let { userId } = this.props.userInfo;
+        if (!userId) {
+            let target = {
+                pathname:'/login',
+                state: {
+                    from: this.props.history.location.pathname
+                }
+            }
+            return <Redirect to={target}></Redirect>
+        }
         return (
             <Layout className="App">
                 <HeadBar list={this.props.headerMenuList} onChange={this.changeTabMenu} onLogout={this.onLogout}></HeadBar>
@@ -132,7 +178,7 @@ class Home extends React.Component {
                             <Breadcrumb className="page-breadcrumb" style={{ margin: '16px 0' }}>
                                 {this.props.menuPathInfo.pathNameList.map(item => <Breadcrumb.Item key={'list' + item}>{item}</Breadcrumb.Item>)}
                             </Breadcrumb>
-                            <Button type="primary" onClick={this.onBack}>返回</Button>
+                            {this.props.innerPageList.length > 0 && <Button type="primary" onClick={this.onBack}>返回</Button>}
                         </div>
                         <Content
                             style={{
