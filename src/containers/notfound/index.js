@@ -2,7 +2,7 @@ import React from 'react'
 import './style.scss'
 import { Result, Button } from 'antd'
 export default function NotFound() {
-    const back = () => {
+    function back () {
         window.history.go(-1);
     }
     return (

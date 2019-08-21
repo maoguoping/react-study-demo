@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactSVG from 'react-svg';
 import {Redirect} from 'react-router-dom';
 import { Form } from 'antd';
@@ -22,46 +22,30 @@ const mapDispatchToProps = dispatch => {
     }
 };
 const WrapedLoginBox = Form.create({ name: 'normal_login' })(LoginBox);
-class Login extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            redirectToReferrer: false
-        }
-        this.loginIn = this.loginIn.bind(this);
-    }
-
-    loginIn(data) {
+function Login (props) {
+    const userInfo = props.userInfo;
+    const {from} = props.location.state || {from: {pathname: '/'}};
+    const [redirectToReferrer, setRedirectToReferrer] = useState(false);
+    function loginIn(data) {
         console.log(data);
         let {username, password} = data;
-        this.props.loginInAction(username, password);  
+        props.loginInAction(username, password);  
     }
-
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
-        const userInfo = nextProps.userInfo;
+    useEffect(() => {
         if (userInfo.userId !== null) {
-            sessionStorage.setItem('username', userInfo.username);
-            sessionStorage.setItem('userId', userInfo.userId);
-            this.setState({
-                redirectToReferrer: true
-            })
+            setRedirectToReferrer(true);
         }
-    }
-    
-    render() {
-        const {from} = this.props.location.state || {from: {pathname: '/'}};
-        const {redirectToReferrer} = this.state;
-        if (redirectToReferrer) {
-            return <Redirect to={from}></Redirect>
-        }
+    },[userInfo.userId]);
+    if (redirectToReferrer) {
+        return <Redirect to={from}></Redirect>
+    } else {
         return (
             <div className="login-page">
                 <div className="login-center-area">
                     <div className="login-svg">
                         <ReactSVG src={loginSvg}/>
                     </div>
-                    <WrapedLoginBox loginIn={this.loginIn}></WrapedLoginBox>
+                    <WrapedLoginBox loginIn={loginIn}></WrapedLoginBox>
                 </div>
             </div>
         )

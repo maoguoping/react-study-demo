@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {withRouter } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -23,146 +23,114 @@ const mapDispatchToProps = dispatch => {
     setError: bindActionCreators(appActions.setError, dispatch)
   }
 };
-class UserList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: 'userList',
-      showDeleteModal: false,
-      searchList: [
-        {
-          label: '用户名',
-          placeholder: '请输入用户名',
-          type: 'input',
-          name: 'username'
-        },
-        {
-          label: '用户id',
-          placeholder: '请输入用户id',
-          type: 'input',
-          name: 'userId'
-        },
-        {
-          label: '用户角色',
-          placeholder: '请选择用户角色',
-          type: 'select',
-          name: 'roleId',
-          options: []
-        }
-      ],
-      tableData: []
-    };
-    this.deleteModalData = {
-      title: '删除用户',
-      text: '确定要删除该用户？',
-      type: 'question-circle'
-    };
-    this.deleteList = [];
-  }
-  getUserList(info) {
+function UserList (props) {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [searchList, setSearchList] = useState([
+    {
+      label: '用户名',
+      placeholder: '请输入用户名',
+      type: 'input',
+      name: 'username'
+    },
+    {
+      label: '用户id',
+      placeholder: '请输入用户id',
+      type: 'input',
+      name: 'userId'
+    },
+    {
+      label: '用户角色',
+      placeholder: '请选择用户角色',
+      type: 'select',
+      name: 'roleId',
+      options: []
+    }
+  ]);
+  const [tableData, setTableData] = useState([]);
+  const deleteModalData = {
+    title: '删除用户',
+    text: '确定要删除该用户？',
+    type: 'question-circle'
+  };
+  let deleteList = [];
+  useEffect(() => {
+    props.getRoleList();
+    getUserList();
+  }, []);
+  useEffect(() => {
+    const newSearchList = searchList.map(item => {
+      if (item.name === 'roleId') {
+        item.options = props.roleList;
+      }
+      return item;
+    }) 
+    setSearchList(newSearchList);
+  },[props.roleList]);
+  function getUserList(info) {
     let params = info || {};
     http.post(api.getUserList,params).then(res => {
       console.log(res);
-      this.setState({
-        tableData: res.data.list
-      })
+      setTableData(res.data.list)
     }).catch(err => {
-      this.props.setError(err);
+      props.setError(err);
     })
   }
-  deleteUser() {
+  function deleteUser() {
     http.get(api.deleteUser,{
-      userId: this.deleteList[0]
+      userId: deleteList[0]
     }).then(res => {
       message.success('删除用户成功');
-      this.getUserList();
+      getUserList();
     }).catch(err => {
-      this.props.setError(err);
+      props.setError(err);
     })
   }
-  onDeleteUser = (e) => {
+  function onDeleteUser (e) {
     console.log('delete', e)
-    this.deleteList = [];
-    this.deleteList.push(e.userId);
-    this.setState({
-      showDeleteModal: true
-    })
+    deleteList = [];
+    deleteList.push(e.userId);
+    setShowDeleteModal(false);
   }
-  onAddUser = () => {
-    this.props.history.push(`/managerCenter/userDetail?mode=new`);
+  function onAddUser () {
+   props.history.push(`/managerCenter/userDetail?mode=new`);
   }
-  onDeleteConfirm = (e) => {
-    this.setState({
-      showDeleteModal: false
-    })
-    this.deleteUser();
+  function  onDeleteConfirm (e) {
+    setShowDeleteModal(false);
+    deleteUser();
   }
-  onDeleteCancel = (e) => {
-    this.deleteList = [];
-    this.setState({
-      showDeleteModal: false
-    })
+  function onDeleteCancel (e) {
+    deleteList = [];
+    setShowDeleteModal(false);
   }
-  onSearch = (e) => {
+  function onSearch (e) {
     console.log('搜索信息', e);
     let userId = e.userId || '';
     let roleId = e.roleId || '';
     let username = e.username || '';
-    this.getUserList({
+    getUserList({
       userId,
       roleId,
       username
     });
   }
-  onDetail = (e) => {
+  function onDetail (e) {
     console.log('查看详情');
     let userId = e.userId || '';
-    this.props.history.push(`/managerCenter/userDetail?mode=edit&userId=${userId}`);
+    props.history.push(`/managerCenter/userDetail?mode=edit&userId=${userId}`);
   }
-  componentDidMount() {
-    console.log(this.props)
-    this.props.getRoleList();
-    this.getUserList();
-  }
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.roleList.length !== prevState.searchList[2].options.length) {
-      console.log('发生改变')
-      return {
-        roleList: nextProps.roleList
-      }
-    }
-    return null;
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.roleList.length !== this.state.searchList[2].options.length) {
-      console.log('发生改变2')
-      const searchList = this.state.searchList.map(item => {
-        if (item.name === 'roleId') {
-          item.options = this.props.roleList;
-        }
-        return item;
-      }) 
-      this.setState({
-        searchList
-      });
-    }
-  }
-  render() {
-    return (
-      <div className="user-list-page">
-        <div className="user-list-search">
-          <SearchBox  list={this.state.searchList} onSearch={this.onSearch}></SearchBox>
-        </div>
-        <div className="user-list-action-bar">
-          <Button type="primary" onClick={this.onAddUser}>新增</Button>
-        </div>
-        <div className="user-list-content">
-          <UserListTable data={this.state.tableData} roleList={this.props.roleList} onDelete={this.onDeleteUser} onDetail={this.onDetail}></UserListTable>
-        </div>
-        <Modal value={this.state.showDeleteModal} data={this.deleteModalData} onConfirm={this.onDeleteConfirm} onCancel = {this.onDeleteCancel}></Modal>
+  return (
+    <div className="user-list-page">
+      <div className="user-list-search">
+        <SearchBox  list={searchList} onSearch={onSearch}></SearchBox>
       </div>
-    )
-  }
+      <div className="user-list-action-bar">
+        <Button type="primary" onClick={onAddUser}>新增</Button>
+      </div>
+      <div className="user-list-content">
+        <UserListTable data={tableData} roleList={props.roleList} onDelete={onDeleteUser} onDetail={onDetail}></UserListTable>
+      </div>
+      <Modal value={showDeleteModal} data={deleteModalData} onConfirm={onDeleteConfirm} onCancel = {onDeleteCancel}></Modal>
+    </div>
+  )
 }
-
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(UserList));

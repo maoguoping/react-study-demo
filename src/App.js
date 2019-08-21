@@ -6,19 +6,16 @@ import Home from './containers/home'
 import Login from './containers/login'
 import NotFound from './containers/notfound'
 initMock();
-class App extends React.Component {
-    render() {
-        return (
-           <Router>
-                <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/managerCenter" component={Home} />
-                    <Route path="/login" component={Login} />
-                    <Route component={NotFound}></Route>
-                </Switch>
-           </Router>
-        )
-    }
+function App () {
+    return (
+        <Router>
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/managerCenter" component={Home} />
+                <Route path="/login" component={Login} />
+                <Route component={NotFound}></Route>
+            </Switch>
+        </Router>
+    )
 }
-
 export default App;
