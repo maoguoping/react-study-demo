@@ -896,7 +896,7 @@
 
 "@babel/runtime@^7.5.5":
   version "7.5.5"
-  resolved "http://r.cnpmjs.org/@babel/runtime/download/@babel/runtime-7.5.5.tgz#74fba56d35efbeca444091c7850ccd494fd2f132"
+  resolved "https://r.cnpmjs.org/@babel/runtime/download/@babel/runtime-7.5.5.tgz#74fba56d35efbeca444091c7850ccd494fd2f132"
   integrity sha1-dPulbTXvvspEQJHHhQzNSU/S8TI=
   dependencies:
     regenerator-runtime "^0.13.2"
@@ -1139,7 +1139,7 @@
 
 "@redux-saga/core@^1.0.3":
   version "1.0.3"
-  resolved "http://r.cnpmjs.org/@redux-saga/core/download/@redux-saga/core-1.0.3.tgz#c29ec7ae3d7dfcbcb8dc93177f2b3edc798c5d85"
+  resolved "https://r.cnpmjs.org/@redux-saga/core/download/@redux-saga/core-1.0.3.tgz#c29ec7ae3d7dfcbcb8dc93177f2b3edc798c5d85"
   integrity sha1-wp7Hrj19/Ly43JMXfys+3HmMXYU=
   dependencies:
     "@babel/runtime" "^7.0.0"
@@ -1153,19 +1153,19 @@
 
 "@redux-saga/deferred@^1.0.1":
   version "1.0.1"
-  resolved "http://r.cnpmjs.org/@redux-saga/deferred/download/@redux-saga/deferred-1.0.1.tgz#c895445e486bded90acf0b873b4e978fbfe458c2"
+  resolved "https://r.cnpmjs.org/@redux-saga/deferred/download/@redux-saga/deferred-1.0.1.tgz#c895445e486bded90acf0b873b4e978fbfe458c2"
   integrity sha1-yJVEXkhr3tkKzwuHO06Xj7/kWMI=
 
 "@redux-saga/delay-p@^1.0.1":
   version "1.0.1"
-  resolved "http://r.cnpmjs.org/@redux-saga/delay-p/download/@redux-saga/delay-p-1.0.1.tgz#d69fc6103c7509ae80faa144ea17bbc69e51e029"
+  resolved "https://r.cnpmjs.org/@redux-saga/delay-p/download/@redux-saga/delay-p-1.0.1.tgz#d69fc6103c7509ae80faa144ea17bbc69e51e029"
   integrity sha1-1p/GEDx1Ca6A+qFE6he7xp5R4Ck=
   dependencies:
     "@redux-saga/symbols" "^1.0.1"
 
 "@redux-saga/is@^1.0.2":
   version "1.0.2"
-  resolved "http://r.cnpmjs.org/@redux-saga/is/download/@redux-saga/is-1.0.2.tgz#7f4be014c97061898d7efb11d6c9de31e943ed38"
+  resolved "https://r.cnpmjs.org/@redux-saga/is/download/@redux-saga/is-1.0.2.tgz#7f4be014c97061898d7efb11d6c9de31e943ed38"
   integrity sha1-f0vgFMlwYYmNfvsR1sneMelD7Tg=
   dependencies:
     "@redux-saga/symbols" "^1.0.1"
@@ -1173,12 +1173,12 @@
 
 "@redux-saga/symbols@^1.0.1":
   version "1.0.1"
-  resolved "http://r.cnpmjs.org/@redux-saga/symbols/download/@redux-saga/symbols-1.0.1.tgz#46512ae1275f88df061c42168d0f600ddb170c1e"
+  resolved "https://r.cnpmjs.org/@redux-saga/symbols/download/@redux-saga/symbols-1.0.1.tgz#46512ae1275f88df061c42168d0f600ddb170c1e"
   integrity sha1-RlEq4SdfiN8GHEIWjQ9gDdsXDB4=
 
 "@redux-saga/types@^1.0.2":
   version "1.0.2"
-  resolved "http://r.cnpmjs.org/@redux-saga/types/download/@redux-saga/types-1.0.2.tgz#1d94f02800b094753f9271c206a26c2a06ca14ee"
+  resolved "https://r.cnpmjs.org/@redux-saga/types/download/@redux-saga/types-1.0.2.tgz#1d94f02800b094753f9271c206a26c2a06ca14ee"
   integrity sha1-HZTwKACwlHU/knHCBqJsKgbKFO4=
 
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
@@ -1288,7 +1288,7 @@
 
 "@tanem/svg-injector@^8.0.23":
   version "8.0.23"
-  resolved "http://r.cnpmjs.org/@tanem/svg-injector/download/@tanem/svg-injector-8.0.23.tgz#07a840a36bd6a4a2b7b7ec3b398c1ac4521deffb"
+  resolved "https://r.cnpmjs.org/@tanem/svg-injector/download/@tanem/svg-injector-8.0.23.tgz#07a840a36bd6a4a2b7b7ec3b398c1ac4521deffb"
   integrity sha1-B6hAo2vWpKK3t+w7OYwaxFId7/s=
   dependencies:
     "@babel/runtime" "^7.5.5"
@@ -2020,7 +2020,7 @@ aws4@^1.8.0:
 
 axios@^0.19.0:
   version "0.19.0"
-  resolved "http://r.cnpmjs.org/axios/download/axios-0.19.0.tgz#8e09bff3d9122e133f7b8101c8fbdd00ed3d2ab8"
+  resolved "https://r.cnpmjs.org/axios/download/axios-0.19.0.tgz#8e09bff3d9122e133f7b8101c8fbdd00ed3d2ab8"
   integrity sha1-jgm/89kSLhM/e4EByPvdAO09Krg=
   dependencies:
     follow-redirects "1.5.10"
@@ -3378,7 +3378,7 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.8, debug@^2.6.
 
 debug@=3.1.0:
   version "3.1.0"
-  resolved "http://r.cnpmjs.org/debug/download/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  resolved "https://r.cnpmjs.org/debug/download/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   integrity sha1-W7WgZyYotkFJVmuhaBnmFRjGcmE=
   dependencies:
     ms "2.0.0"
@@ -3410,9 +3410,9 @@ decamelize@^2.0.0:
     xregexp "4.0.0"
 
 decode-uri-component@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
-  integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
+  integrity sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==
 
 deep-equal@^1.0.1:
   version "1.0.1"
@@ -4404,7 +4404,7 @@ flush-write-stream@^1.0.0:
 
 follow-redirects@1.5.10:
   version "1.5.10"
-  resolved "http://r.cnpmjs.org/follow-redirects/download/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
+  resolved "https://r.cnpmjs.org/follow-redirects/download/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
   integrity sha1-e3qfmuov3/NnhqlP9kPtB/T/Xio=
   dependencies:
     debug "=3.1.0"
@@ -6835,7 +6835,7 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
 
 mockjs@^1.0.1-beta3:
   version "1.0.1-beta3"
-  resolved "http://r.cnpmjs.org/mockjs/download/mockjs-1.0.1-beta3.tgz#d234f3c27256397564f2c955142e891909537209"
+  resolved "https://r.cnpmjs.org/mockjs/download/mockjs-1.0.1-beta3.tgz#d234f3c27256397564f2c955142e891909537209"
   integrity sha1-0jTzwnJWOXVk8slVFC6JGQlTcgk=
   dependencies:
     commander "*"
@@ -9120,7 +9120,7 @@ react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
 
 react-loadable@^5.5.0:
   version "5.5.0"
-  resolved "http://r.cnpmjs.org/react-loadable/download/react-loadable-5.5.0.tgz#582251679d3da86c32aae2c8e689c59f1196d8c4"
+  resolved "https://r.cnpmjs.org/react-loadable/download/react-loadable-5.5.0.tgz#582251679d3da86c32aae2c8e689c59f1196d8c4"
   integrity sha1-WCJRZ509qGwyquLI5onFnxGW2MQ=
   dependencies:
     prop-types "^15.5.0"
@@ -9239,7 +9239,7 @@ react-slick@~0.24.0:
 
 react-svg@^10.0.13:
   version "10.0.13"
-  resolved "http://r.cnpmjs.org/react-svg/download/react-svg-10.0.13.tgz#538aac6dc5ac66ccf0679d98fb01358d2eb2decd"
+  resolved "https://r.cnpmjs.org/react-svg/download/react-svg-10.0.13.tgz#538aac6dc5ac66ccf0679d98fb01358d2eb2decd"
   integrity sha1-U4qsbcWsZszwZ52Y+wE1jS6y3s0=
   dependencies:
     "@babel/runtime" "^7.5.5"
@@ -9372,19 +9372,19 @@ redux-persist@^5.10.0:
 
 redux-saga@^1.0.5:
   version "1.0.5"
-  resolved "http://r.cnpmjs.org/redux-saga/download/redux-saga-1.0.5.tgz#03317261bc5fa7ee2ecb778f4e4848f573557bbb"
+  resolved "https://r.cnpmjs.org/redux-saga/download/redux-saga-1.0.5.tgz#03317261bc5fa7ee2ecb778f4e4848f573557bbb"
   integrity sha1-AzFyYbxfp+4uy3ePTkhI9XNVe7s=
   dependencies:
     "@redux-saga/core" "^1.0.3"
 
 redux-thunk@^2.3.0:
   version "2.3.0"
-  resolved "http://r.cnpmjs.org/redux-thunk/download/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
+  resolved "https://r.cnpmjs.org/redux-thunk/download/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
   integrity sha1-UcLBmhhe1Rh6qpotCLZm0NZGdiI=
 
 "redux@>=0.10 <5", redux@^4.0.4:
   version "4.0.4"
-  resolved "http://r.cnpmjs.org/redux/download/redux-4.0.4.tgz#4ee1aeb164b63d6a1bcc57ae4aa0b6e6fa7a3796"
+  resolved "https://r.cnpmjs.org/redux/download/redux-4.0.4.tgz#4ee1aeb164b63d6a1bcc57ae4aa0b6e6fa7a3796"
   integrity sha1-TuGusWS2PWobzFeuSqC25vp6N5Y=
   dependencies:
     loose-envify "^1.4.0"
@@ -10454,7 +10454,7 @@ svgo@^1.0.0, svgo@^1.2.1:
 
 symbol-observable@^1.2.0:
   version "1.2.0"
-  resolved "http://r.cnpmjs.org/symbol-observable/download/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
+  resolved "https://r.cnpmjs.org/symbol-observable/download/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
   integrity sha1-wiaIrtTqs83C3+rLtWFmBWCgCAQ=
 
 symbol-tree@^3.2.2:
@@ -10740,19 +10740,19 @@ typedarray@^0.0.6:
 
 typescript-compare@^0.0.2:
   version "0.0.2"
-  resolved "http://r.cnpmjs.org/typescript-compare/download/typescript-compare-0.0.2.tgz#7ee40a400a406c2ea0a7e551efd3309021d5f425"
+  resolved "https://r.cnpmjs.org/typescript-compare/download/typescript-compare-0.0.2.tgz#7ee40a400a406c2ea0a7e551efd3309021d5f425"
   integrity sha1-fuQKQApAbC6gp+VR79MwkCHV9CU=
   dependencies:
     typescript-logic "^0.0.0"
 
 typescript-logic@^0.0.0:
   version "0.0.0"
-  resolved "http://r.cnpmjs.org/typescript-logic/download/typescript-logic-0.0.0.tgz#66ebd82a2548f2b444a43667bec120b496890196"
+  resolved "https://r.cnpmjs.org/typescript-logic/download/typescript-logic-0.0.0.tgz#66ebd82a2548f2b444a43667bec120b496890196"
   integrity sha1-ZuvYKiVI8rREpDZnvsEgtJaJAZY=
 
 typescript-tuple@^2.1.0:
   version "2.2.1"
-  resolved "http://r.cnpmjs.org/typescript-tuple/download/typescript-tuple-2.2.1.tgz#7d9813fb4b355f69ac55032e0363e8bb0f04dad2"
+  resolved "https://r.cnpmjs.org/typescript-tuple/download/typescript-tuple-2.2.1.tgz#7d9813fb4b355f69ac55032e0363e8bb0f04dad2"
   integrity sha1-fZgT+0s1X2msVQMuA2Pouw8E2tI=
   dependencies:
     typescript-compare "^0.0.2"
